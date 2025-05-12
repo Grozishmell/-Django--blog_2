@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="post">
+        <h1>{{ post.title }}</h1>
+        <p>Автор: {{ post.author.username }} | {{ post.created_at }}</p>
+        <p>{{ post.content }}</p>
+    </div>
+
+    <h3>Комментарии ({{ post.comments.count }}):</h3>
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <p><strong>{{ comment.author.username }}</strong> | {{ comment.created_at }}</p>
+            <p>{{ comment.text }}</p>
+        </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Добавить комментарий</button>
+        </form>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ form_title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">{{ form_title }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+    </form>
+
+    <a href="{% url 'post_list' %}" class="btn btn-link mt-3">Назад к списку</a>
+</div>
+{% endblock %}
